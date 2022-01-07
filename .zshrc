@@ -1,9 +1,14 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 . "$HOME/.cargo/env"
 export PATH=~/.npm-global/bin:$PATH
 export CLOUDSDK_PYTHON=python2
 
-# Neofetch
-neofetch
 
 # Enable colors and change prompt:
 autoload -U colors && colors
@@ -82,8 +87,9 @@ bindkey '^e' edit-command-line
 
 # Aliases for github
 alias ga="git add"
-alias gp="git push -u origin master"
+alias gp="git push origin"
 alias gc="git clone"
+
 
 # Aliases for streamlink
 alias sl="streamlink"
@@ -119,6 +125,9 @@ alias goxlr="cd Softwares/goxlr-on-linux && ./run_goxlr.sh"
 # Alias for running i3memory script by Brodie Roberston
 alias i3memory="./i3memory.sh"
 
+# Alias for Google Cloud Platform
+alias gcp="gcloud app"
+
 # Adding Git support?
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
@@ -129,6 +138,20 @@ RPROMPT='${vcs_info_msg_0_}'
 zstyle ':vcs_info:git:*' formats '%b'
 
 
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
+
+# if the init script doesn't exist
+if ! zgen saved; then
+
+  # specify plugins here
+  zplug romkatv/powerlevel10k, as:theme, depth:1
+
+  # generate the init script from plugins above
+  zgen save
+fi
+
+
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 # Suggest aliases for commands
@@ -137,9 +160,13 @@ source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh 2>/de
 source /usr/share/zsh/plugins/command-not-found.zsh 2>/dev/null
 # Added Git plugin
 source /usr/share/zsh/plguins/git.plugin.zsh 2>/dev/null
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/louie/Softwares/google-cloud-sdk/path.zsh.inc' ]; then . '/home/louie/Softwares/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/elias/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/elias/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/louie/Softwares/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/louie/Softwares/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/elias/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/elias/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
