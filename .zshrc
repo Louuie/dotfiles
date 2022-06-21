@@ -5,7 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-. "$HOME/.cargo/env"
 export PATH=~/.npm-global/bin:$PATH
 export CLOUDSDK_PYTHON=python2
 
@@ -134,39 +133,21 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 RPROMPT='${vcs_info_msg_0_}'
-# PROMPT='${vcs_info_msg_0_}%# '
-zstyle ':vcs_info:git:*' formats '%b'
-
-
-# load zgen
-source "${HOME}/.zgen/zgen.zsh"
-
-# if the init script doesn't exist
-if ! zgen saved; then
-
-  # specify plugins here
-  zplug romkatv/powerlevel10k, as:theme, depth:1
-
-  # generate the init script from plugins above
-  zgen save
-fi
-
-
-# Load zsh-syntax-highlighting; should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-# Suggest aliases for commands
-source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh 2>/dev/null
-# Search repos for programs that can't be found
-source /usr/share/zsh/plugins/command-not-found.zsh 2>/dev/null
-# Added Git plugin
-source /usr/share/zsh/plguins/git.plugin.zsh 2>/dev/null
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/elias/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/elias/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/elias/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/elias/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# GOOGLE API KEY
+export GOOGLE_API_KEY="AIzaSyDjKfVKdk4g9Lks1hUFvm2NiMpIBq4R7uM"
+
+# TWITCH DaCommunityBot-Website Client ID & Client Secret
+export TWITCH_CLIENT_ID="wtaln1ogegdpmq0cw7x1mxw1nmwpsx"
+export TWITCH_CLIENT_SECRET="waf88qprflcsp8h3nw2n4uc0qvsvl0"
